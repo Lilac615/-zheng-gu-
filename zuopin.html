@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>术语的桥梁 - 蒙医正骨对照手册</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/travel.css">
+  <link relpreconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700;900&family=Noto+Sans+SC:wght@300;400;500&family=Cinzel:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --green: #1E3A2F;
+      --gold: #C9A03D;
+      --cream: #F9F6F0;
+      --warm-white: #faf8f4;
+      --text-dark: #1a1a1a;
+      --text-mid: #4a4a47;
+      --text-light: #888;
+      --border: rgba(201,160,61,0.25);
+    }
+  
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    /* 统一全局背景 */
+    html, body {
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      width: 100vw;
+      overflow-x: hidden;
+    }
+    body {
+      font-family: 'Noto Sans SC', sans-serif;
+      background-image: url("../img/3.jpg");
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      background-color: #f0f0f0;
+    }
+  
+    /* 板块整体 */
+    .terminology {
+      background: var(--warm-white);
+      position: relative;
+      padding: 100px 0;
+    }
+    .section-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 60px;
+    }
+    .section-header {
+      text-align: center;
+      margin-bottom: 64px;
+    }
+    .section-label {
+      display: inline-flex; align-items: center; gap: 12px;
+      font-family: 'Cinzel', serif;
+      font-size: 10px;
+      color: var(--gold);
+      letter-spacing: 4px;
+      margin-bottom: 16px;
+    }
+    .section-label::before, .section-label::after {
+      content: ''; width: 50px; height: 1px; background: var(--gold); opacity: 0.5;
+    }
+    .section-title {
+      font-family: 'Noto Serif SC', serif;
+      font-size: clamp(28px, 3vw, 40px);
+      font-weight: 900;
+      letter-spacing: 4px;
+      line-height: 1.3;
+      color: var(--green);
+    }
+    .section-subtitle {
+      margin-top: 12px;
+      font-size: 13px;
+      color: var(--text-light);
+      letter-spacing: 2px;
+    }
+    .gold-line {
+      width: 60px; height: 1px;
+      background: var(--gold);
+      margin: 20px auto 0;
+      opacity: 0.6;
+    }
+  
+    /* 布局 */
+    .terminology-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 72px;
+      align-items: start;
+    }
+  
+    /* 左侧手册样式 */
+    .handbook-visual {
+      position: relative;
+      padding: 40px;
+      background: var(--green);
+      aspect-ratio: 3/4;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: 20px;
+      overflow: hidden;
+    }
+    .handbook-visual::before {
+      content: '';
+      position: absolute; inset: 12px;
+      border: 1px solid rgba(201,160,61,0.3);
+    }
+    .handbook-visual::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Cpath d='M0 30 Q15 20 30 30 Q45 40 60 30' fill='none' stroke='%23C9A03D' stroke-width='0.4' opacity='0.15'/%3E%3C/svg%3E") repeat;
+      background-size: 60px 60px;
+    }
+    .handbook-logo {
+      width: 80px; height: 80px;
+      border: 2px solid var(--gold);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      position: relative; z-index: 1;
+      background: rgba(201,160,61,0.1);
+      font-size: 32px;
+    }
+    .handbook-title {
+      position: relative; z-index: 1;
+      text-align: center;
+    }
+    .handbook-title h3 {
+      font-family: 'Noto Serif SC', serif;
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--gold);
+      letter-spacing: 3px;
+      margin-bottom: 6px;
+    }
+    .handbook-title p {
+      font-family: 'Cinzel', serif;
+      font-size: 9px;
+      color: rgba(201,160,61,0.6);
+      letter-spacing: 1.5px;
+    }
+    .handbook-placeholder {
+      position: relative; z-index: 1;
+      padding: 20px 32px;
+      border: 1px dashed rgba(201,160,61,0.3);
+      text-align: center;
+    }
+    .handbook-placeholder p {
+      font-size: 11px;
+      color: rgba(249,246,240,0.35);
+      letter-spacing: 1px;
+      line-height: 1.8;
+    }
+    .handbook-download {
+      position: relative; z-index: 1;
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 12px 28px;
+      background: var(--gold);
+      color: var(--green);
+      font-family: 'Noto Serif SC', serif;
+      font-size: 12px;
+      letter-spacing: 2px;
+      cursor: pointer;
+      text-decoration: none;
+      font-weight: 700;
+      transition: opacity 0.3s;
+    }
+    .handbook-download:hover { opacity: 0.85; }
+  
+    /* 右侧术语表格 */
+    .terminology-table {
+      padding-top: 8px;
+    }
+    .term-intro {
+      font-size: 13px;
+      color: var(--text-mid);
+      line-height: 2;
+      margin-bottom: 36px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid rgba(30,58,47,0.1);
+      font-style: italic;
+    }
+    .term-row {
+      padding: 20px 0;
+      border-bottom: 1px solid rgba(30,58,47,0.08);
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 24px;
+      align-items: start;
+    }
+    .term-chinese {
+      font-family: 'Noto Serif SC', serif;
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--green);
+      letter-spacing: 2px;
+      min-width: 100px;
+      padding-top: 2px;
+    }
+    .term-mongolian {
+      font-size: 12px;
+      color: var(--text-light);
+      line-height: 1.8;
+      letter-spacing: 0.5px;
+    }
+  
+    /* 滚动动画 */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .fade-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .fade-up-delay-2 { transition-delay: 0.2s; }
+
+    /* 导航栏LOGO */
+    .logo {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+    .header-logo {
+        width: 60px;    /* 放大LOGO */
+        height: 60px;
+        object-fit: contain;
+    }
+
+    /* 头部样式统一 */
+    .page-header {
+        text-align: center;
+        padding: 60px 20px;
+        color: #fff;
+        text-shadow: 1px 1px 5px #333;
+    }
+    .page-header h2 {
+        font-family: 'Noto Serif SC', serif;
+        font-size: 32px;
+        margin-bottom: 10px;
+    }
+    .page-header p {
+        font-size: 16px;
+        opacity: 0.9;
+    }
+
+    /* 统一高端尾栏 */
+    footer {
+        background: var(--green);
+        padding: 56px 60px 32px;
+        color: var(--cream);
+    }
+    .footer-top {
+        display: grid;
+        grid-template-columns: 2fr 1fr 1fr 1fr;
+        gap: 48px;
+        padding-bottom: 40px;
+        border-bottom: 1px solid rgba(201,160,61,0.15);
+        margin-bottom: 32px;
+        max-width: 1200px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .footer-brand h3 {
+        font-family: 'Noto Serif SC', serif;
+        font-size: 18px;
+        color: var(--gold);
+        letter-spacing: 3px;
+        margin-bottom: 10px;
+    }
+    .footer-brand p {
+        font-size: 11px;
+        color: rgba(249,246,240,0.4);
+        line-height: 2;
+        letter-spacing: 0.5px;
+    }
+    .footer-col h4 {
+        font-family: 'Noto Serif SC', serif;
+        font-size: 13px;
+        color: var(--gold);
+        letter-spacing: 2px;
+        margin-bottom: 16px;
+    }
+    .footer-col p, .footer-col a {
+        display: block;
+        font-size: 11.5px;
+        color: rgba(249,246,240,0.45);
+        line-height: 2.2;
+        text-decoration: none;
+        transition: color 0.2s;
+    }
+    .footer-col a:hover { color: var(--gold); }
+    .footer-bottom {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        max-width: 1200px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .footer-bottom p {
+        font-size: 11px;
+        color: rgba(249,246,240,0.3);
+        letter-spacing: 1px;
+    }
+  </style>
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <div class="logo">
+                <img src="../img/logo.jpg" alt="蒙医正骨非遗LOGO" class="header-logo">
+                <h1>传统正骨非遗</h1>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">首页</a></li>
+                <li><a href="jieshao.html">技艺介绍</a></li>
+                <li><a href="zhinan.html">传承指南</a></li>
+                <li><a href="history.html">千年历史</a></li>
+                <li><a href="zuopin.html" class="active">经典案例</a></li>
+                <li><a href="shufa.html">非遗文创</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <header class="page-header">
+        <div class="container">
+            <h2>术语的桥梁</h2>
+            <p>蒙医正骨术语对照手册 · 让传统智慧跨越语言</p>
+        </div>
+    </header>
+
+<!-- ===================== 术语的桥梁 完整板块 ===================== -->
+<section class="terminology" id="terminology">
+  <div class="section-inner">
+    <div class="section-header fade-up">
+      <div class="section-label">Terminology Bridge</div>
+      <h2 class="section-title">术语的桥梁</h2>
+      <p class="section-subtitle">语言曾使智慧分隔，这本手册试图缝合。</p>
+      <div class="gold-line"></div>
+    </div>
+
+    <div class="terminology-layout">
+      <div class="handbook-visual fade-up">
+        <div class="handbook-logo">📖</div>
+        <div class="handbook-title">
+          <h3>蒙医正骨术语</h3>
+          <h3>汉蒙对照手册</h3>
+          <p style="margin-top:8px">MONGOLIAN CHIROPRACTIC TERMINOLOGY</p>
+          <p>CHINESE-MONGOLIAN HANDBOOK</p>
+        </div>
+        <div class="handbook-placeholder">
+          <p>手册封面实物图<br>（明后天提供最新版本）<br>可替换为实拍图片</p>
+        </div>
+        <a href="#" class="handbook-download">
+          📄 点击下载完整手册（PDF）
+        </a>
+      </div>
+
+      <div class="terminology-table fade-up fade-up-delay-2">
+        <p class="term-intro">「语言曾使智慧分隔，这本手册试图缝合。」从游牧民族口耳相传的术语，到三语并置的标准化手册——让蒙医智慧可以被更多人理解、传承与使用。</p>
+
+        <div class="term-row">
+          <div class="term-chinese">喷酒正骨</div>
+          <div class="term-mongolian">ᠠᠷᠢᠬ ᠰᠦᠷᠴᠢᠨ ᠢᠯᠢᠵᠤ ᠨᠤᠬᠤᠯᠠᠵᠤ ᠰᠢᠪᠲᠤᠷᠬᠤ<br><span style="color:#888;font-size:11px">以烈性白酒为媒介，结合揉授按摩的复位方法</span></div>
+        </div>
+        <div class="term-row">
+          <div class="term-chinese">外自固定</div>
+          <div class="term-mongolian">ᠭᠠᠳᠠᠷ ᠪᠡᠯᠢᠯ<br><span style="color:#888;font-size:11px">弹性外固定技术，允许骨骼产生生理性微动</span></div>
+        </div>
+        <div class="term-row">
+          <div class="term-chinese">牙思必拉其博</div>
+          <div class="term-mongolian">ᠶᠠᠰᠤ ᠪᠷᠢᠢᠠᠴᠴ ᠪᠥ<br><span style="color:#888;font-size:11px">骨折正骨手法的蒙语专业术语</span></div>
+        </div>
+        <div class="term-row">
+          <div class="term-chinese">蛇蛋花宝石</div>
+          <div class="term-mongolian">ᠮᠣᠭᠠᠴ  ᠶᠢᠨ ᠥᠨᠳᠢᠭᠨ ᠴᠢᠯᠠᠭᠤ<br><span style="color:#888;font-size:11px">传统蒙医疗愈宝石，具有神秘的治疗意义</span></div>
+        </div>
+        <div class="term-row">
+          <div class="term-chinese">小夹板固定</div>
+          <div class="term-mongolian">ᠵᠢᠵᠢᠭ ᠬᠠᠪᠳᠠᠰᠤ ᠪᠷ ᠪᠡᠯᠢᠨ ᠲᠣᠭᠲᠠᠭᠠᠬᠤ<br><span style="color:#888;font-size:11px">使用柳木等天然材料的弹性固定方式</span></div>
+        </div>
+        <div class="term-row">
+          <div class="term-chinese">赫依·希拉·巴达干</div>
+          <div class="term-mongolian">ᠬᠴ ᠰᠢᠷ᠎ᠠ ᠪᠳᠠᠭᠠᠨ<br><span style="color:#888;font-size:11px">蒙医三根学说——风、热、寒三种基本生命要素</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.12 });
+document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+</script>
+
+<!-- 统一高端尾栏 -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <h3>传统正骨非遗</h3>
+      <p>中央民族大学中国少数民族语言文学学院<br>「传统正骨非遗的健康智慧挖掘与共享实践——探讨民族医药非遗对人类命运与健康共同体的贡献」项目团队</p>
+      <br>
+      <p>数据来源：基于 31 篇文献与田野访谈</p>
+    </div>
+    <div class="footer-col">
+      <h4>联系我们</h4>
+      <p>内蒙古自治区呼和浩特市</p>
+      <p>内蒙古国际蒙医医院</p>
+      <p>电话：0471-5182020</p>
+    </div>
+    <div class="footer-col">
+      <h4>开放时间</h4>
+      <p>周二至周五 9:00-17:00</p>
+      <p>周一闭馆（法定节假日除外）</p>
+      <p>免费参观</p>
+    </div>
+    <div class="footer-col">
+      <h4>关注我们</h4>
+      <p>微信公众号：蒙医正骨</p>
+      <p>微博：@内蒙古非遗</p>
+      <p>抖音：蒙医正骨传承</p>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>项目成员：吉日歌、丹妮、萨其日格、吴之晔、麦庭畅 &nbsp;·&nbsp; 指导教师：阿里穆斯教授</p>
+    <p>© 2026 蒙医正骨非物质文化遗产传承基地 版权所有</p>
+  </div>
+</footer>
+
+</body>
+</html>

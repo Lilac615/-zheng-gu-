@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>蒙医正骨 - 特色疗法</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/attractions.css">
+   <link rel="preconnect" href="https://fonts.googleapis.com">
+   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700;900&family=Noto+Sans+SC:wght@300;400;500&family=Cinzel:wght@400;600&display=swap" rel="stylesheet">
+   <style>
+     :root {
+       --green: #1E3A2F;
+       --green-mid: #2a5040;
+       --green-light: #3d7060;
+       --gold: #C9A03D;
+       --gold-light: #e8c06a;
+       --cream: #F9F6F0;
+       --warm-white: #faf8f4;
+       --text-dark: #1a1a1a;
+       --text-mid: #4a4a4a;
+       --text-light: #888;
+       --border: rgba(201,160,61,0.25);
+     }
+   
+     * { margin: 0; padding: 0; box-sizing: border-box; }
+     
+     /* 统一全局背景 */
+     html, body {
+       margin: 0;
+       padding: 0;
+       min-height: 100vh;
+       width: 100vw;
+       overflow-x: hidden;
+     }
+     body {
+       font-family: 'Noto Sans SC', sans-serif;
+       background-image: url("../img/4.jpg");
+       background-size: cover;
+       background-position: center;
+       background-repeat: no-repeat;
+       background-attachment: fixed;
+       background-color: #f0f0f0;
+       color: var(--text-dark);
+     }
+   
+     /* 动画基础 */
+     .fade-up { opacity: 0; transform: translateY(30px); transition: opacity 0.7s ease, transform 0.7s ease; }
+     .fade-up.visible { opacity: 1; transform: translateY(0); }
+     .gold-line { width: 60px; height: 1px; background: var(--gold); margin: 20px auto 0; opacity: 0.6; }
+   
+     /* 特色疗法主体 */
+     .therapy { background: var(--green); position: relative; overflow: hidden; padding: 100px 0; }
+     .therapy::before {
+       content: ''; position: absolute; inset: 0;
+       background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cpath d='M60 10 Q80 30 60 50 Q40 70 60 90' fill='none' stroke='%23C9A03D' stroke-width='0.5' opacity='0.15'/%3E%3Ccircle cx='60' cy='60' r='45' fill='none' stroke='%23C9A03D' stroke-width='0.3' opacity='0.1'/%3E%3C/svg%3E");
+       background-size: 120px 120px; opacity: 0.4;
+     }
+     .section-inner { max-width: 1200px; margin: 0 auto; padding: 0 60px; }
+     .section-header { text-align: center; margin-bottom: 64px; }
+     .section-label {
+       display: inline-flex; align-items: center; gap: 12px;
+       font-family: 'Cinzel', serif; font-size: 10px; color: var(--gold); letter-spacing: 4px; margin-bottom: 16px;
+     }
+     .section-label::before, .section-label::after { content: ''; width: 50px; height: 1px; background: var(--gold); opacity: 0.5; }
+     .section-title { font-family: 'Noto Serif SC', serif; font-size: clamp(28px, 3vw, 40px); font-weight: 900; letter-spacing: 4px; line-height: 1.3; }
+     .section-title.light { color: var(--cream); }
+     .section-subtitle.light { color: rgba(249,246,240,0.5); margin-top: 12px; font-size: 13px; letter-spacing: 2px; }
+   
+     /* 选项卡 */
+     .therapy-tabs {
+       display: flex; justify-content: center; gap: 0; margin-bottom: 60px;
+       border: 1px solid rgba(201,160,61,0.3); width: fit-content; margin-left: auto; margin-right: auto;
+     }
+     .tab-btn {
+       padding: 14px 40px; background: transparent; border: none; color: rgba(249,246,240,0.5);
+       font-family: 'Noto Serif SC', serif; font-size: 14px; letter-spacing: 2px; cursor: pointer; transition: all 0.3s;
+       border-right: 1px solid rgba(201,160,61,0.3); position: relative;
+     }
+     .tab-btn:last-child { border-right: none; }
+     .tab-btn.active, .tab-btn:hover { background: var(--gold); color: var(--green); }
+     .tab-content { display: none; }
+     .tab-content.active { display: block; }
+   
+     /* 三诊 */
+     .diagnosis-methods { display: flex; justify-content: center; gap: 48px; margin-bottom: 48px; }
+     .diag-circle { display: flex; flex-direction: column; align-items: center; gap: 14px; cursor: default; }
+     .diag-circle-ring {
+       width: 88px; height: 88px; border: 2px solid rgba(201,160,61,0.5); border-radius: 50%;
+       display: flex; align-items: center; justify-content: center; font-size: 32px; background: rgba(201,160,61,0.05);
+       transition: all 0.3s; position: relative;
+     }
+     .diag-circle-ring::before { content: ''; position: absolute; inset: 6px; border: 1px solid rgba(201,160,61,0.2); border-radius: 50%; }
+     .diag-circle:hover .diag-circle-ring { border-color: var(--gold); background: rgba(201,160,61,0.1); transform: scale(1.08); }
+     .diag-circle span { font-family: 'Noto Serif SC', serif; font-size: 14px; color: rgba(249,246,240,0.7); letter-spacing: 2px; }
+     .diag-connector { display: flex; align-items: center; color: rgba(201,160,61,0.4); font-size: 20px; align-self: center; margin-bottom: 28px; }
+   
+     /* 手法环形 */
+     .techniques-label { font-family: 'Noto Serif SC', serif; font-size: 14px; color: var(--gold); letter-spacing: 3px; text-align: center; margin-bottom: 24px; }
+     .techniques-circular { position: relative; width: 460px; height: 460px; margin: 0 auto 40px; }
+     .techniques-center {
+       position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+       width: 140px; height: 140px; border: 2px solid var(--gold); border-radius: 50%;
+       display: flex; flex-direction: column; align-items: center; justify-content: center; background: rgba(201,160,61,0.08);
+     }
+     .techniques-center h3 { font-family: 'Noto Serif SC', serif; font-size: 15px; color: var(--gold); letter-spacing: 2px; text-align: center; line-height: 1.6; }
+     .technique-item {
+       position: absolute; width: 56px; height: 56px; border: 1px solid rgba(201,160,61,0.4); border-radius: 50%;
+       display: flex; align-items: center; justify-content: center; background: rgba(30,58,47,0.8); cursor: default; transition: all 0.3s;
+     }
+     .technique-item:hover { border-color: var(--gold); background: rgba(201,160,61,0.15); transform: scale(1.15); }
+     .technique-item span { font-family: 'Noto Serif SC', serif; font-size: 13px; color: var(--cream); letter-spacing: 1px; }
+   
+     /* 十四手法 */
+     .mt-badge {
+       width:52px;height:52px; border:1px solid rgba(201,160,61,0.35); border-radius:50%;
+       display:flex;align-items:center;justify-content:center; font-family:'Noto Serif SC',serif;font-size:13px;
+       color:var(--cream); background:rgba(249,246,240,0.04); cursor:default; transition:all 0.3s;
+     }
+     .mt-badge:hover { border-color:var(--gold); background:rgba(201,160,61,0.1); transform:scale(1.12); }
+   
+     /* 工具 */
+     .tools-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+     .tool-card {
+       padding: 28px 24px; border: 1px solid rgba(201,160,61,0.2); background: rgba(249,246,240,0.04);
+       transition: all 0.3s; position: relative; overflow: hidden;
+     }
+     .tool-card::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 2px; background: var(--gold); transform: scaleX(0); transition: transform 0.3s; }
+     .tool-card:hover { background: rgba(201,160,61,0.06); }
+     .tool-card:hover::after { transform: scaleX(1); }
+     .tool-card h4 { font-family: 'Noto Serif SC', serif; font-size: 15px; font-weight: 700; color: var(--gold); letter-spacing: 2px; margin-bottom: 10px; }
+     .tool-card p { font-size: 12px; color: rgba(249,246,240,0.55); line-height: 1.9; }
+   
+     /* 用药 */
+     .medicine-featured { padding: 32px 40px; border: 1px solid rgba(201,160,61,0.3); background: rgba(249,246,240,0.04); margin-bottom: 24px; }
+     .medicine-featured p { font-family: 'Noto Serif SC', serif; font-size: 14px; color: rgba(249,246,240,0.7); line-height: 2.2; letter-spacing: 1px; font-style: italic; }
+     .medicine-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 32px; }
+     .medicine-card { padding: 28px 28px; border: 1px solid rgba(201,160,61,0.15); background: rgba(249,246,240,0.03); transition: border-color 0.3s; }
+     .medicine-card:hover { border-color: rgba(201,160,61,0.4); }
+     .medicine-card h4 { font-family: 'Noto Serif SC', serif; font-size: 14px; color: var(--gold); letter-spacing: 2px; margin-bottom: 10px; }
+     .medicine-card p { font-size: 12px; color: rgba(249,246,240,0.55); line-height: 1.9; }
+   
+     /* 六步骤 */
+     .six-steps { margin-top: 40px; padding: 32px 40px; border: 1px solid rgba(201,160,61,0.25); background: rgba(201,160,61,0.03); text-align: center; }
+     .six-steps-title { font-family: 'Noto Serif SC', serif; font-size: 14px; color: rgba(249,246,240,0.6); letter-spacing: 2px; margin-bottom: 20px; }
+     .six-steps-items { display: flex; justify-content: center; gap: 0; flex-wrap: wrap; }
+     .step-item { display: flex; align-items: center; gap: 0; }
+     .step-badge {
+       width: 44px; height: 44px; border: 1px solid var(--gold); border-radius: 50%;
+       display: flex; align-items: center; justify-content: center; font-family: 'Noto Serif SC', serif;
+       font-size: 13px; color: var(--gold); letter-spacing: 1px; position: relative;
+     }
+     .step-badge::before {
+       content: attr(data-num); position: absolute; top: -8px; left: 50%; transform: translateX(-50%);
+       font-family: 'Cinzel', serif; font-size: 8px; color: rgba(201,160,61,0.6);
+     }
+     .step-arrow { width: 28px; height: 1px; background: rgba(201,160,61,0.3); position: relative; }
+     .step-arrow::after { content: '›'; position: absolute; right: -4px; top: -9px; color: rgba(201,160,61,0.3); font-size: 14px; }
+   
+     /* 治疗流程 */
+     .treatment-flow { margin-top: 40px; padding: 40px; background: rgba(0,0,0,0.15); border-radius: 2px; }
+     .flow-title { text-align: center; font-family: 'Noto Serif SC', serif; font-size: 18px; color: var(--cream); letter-spacing: 3px; margin-bottom: 36px; }
+     .flow-steps { display: flex; align-items: flex-start; gap: 0; position: relative; }
+     .flow-steps::before {
+       content: ''; position: absolute; top: 28px; left: 10%; right: 10%; height: 2px;
+       background: linear-gradient(90deg, transparent, var(--gold), transparent); opacity: 0.3;
+     }
+     .flow-step { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 14px; text-align: center; }
+     .flow-num {
+       width: 56px; height: 56px; background: var(--gold); border-radius: 50%;
+       display: flex; align-items: center; justify-content: center; font-family: 'Cinzel', serif;
+       font-size: 18px; font-weight: 600; color: var(--green); position: relative; z-index: 1;
+     }
+     .flow-step h4 { font-family: 'Noto Serif SC', serif; font-size: 15px; color: var(--cream); letter-spacing: 2px; }
+     .flow-step p { font-size: 11px; color: rgba(249,246,240,0.45); line-height: 1.8; padding: 0 8px; }
+   
+     /* 经典案例 */
+     .cases-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+     .case-card {
+       display: flex; gap: 20px; padding: 28px; border: 1px solid rgba(201,160,61,0.2);
+       background: rgba(249,246,240,0.03); align-items: flex-start; transition: border-color 0.3s;
+     }
+     .case-card:hover { border-color: rgba(201,160,61,0.4); }
+     .case-icon {
+       width: 60px; height: 60px; background: rgba(201,160,61,0.1); border: 1px solid rgba(201,160,61,0.3);
+       display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+       font-family: 'Noto Serif SC', serif; font-size: 22px; font-weight: 900; color: var(--gold);
+     }
+     .case-body h4 { font-family: 'Noto Serif SC', serif; font-size: 14px; font-weight: 700; color: var(--cream); letter-spacing: 1px; margin-bottom: 10px; }
+     .case-body p { font-size: 12px; color: rgba(249,246,240,0.5); line-height: 1.9; }
+     .case-tag { display: inline-block; margin-top: 12px; padding: 4px 12px; border: 1px solid rgba(201,160,61,0.3); font-size: 10px; color: var(--gold); letter-spacing: 1px; }
+ 
+        /* 导航栏LOGO + 标题并排 —— LOGO 已调大 */
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .header-logo {
+            width: 50px;    /* 从 50 → 60 调大 */
+            height: 50px;
+            object-fit: contain;
+        }
+
+        /* 头部样式 */
+        .page-header {
+            text-align: center;
+            padding: 60px 20px;
+            color: #fff;
+            text-shadow: 1px 1px 5px #333;
+        }
+        .page-header h2 {
+            font-family: 'Noto Serif SC', serif;
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+        .page-header p {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+
+        /* 特色疗法长卷横向滑动 */
+        .therapy-scroll {
+            width: 100%;
+            overflow-x: auto;
+            padding: 20px 0;
+            margin: 30px 0;
+        }
+        .scroll-wrap {
+            display: flex;
+            gap: 40px;
+            min-width: 100%;
+            padding-bottom: 10px;
+        }
+        .therapy-card {
+            min-width: 380px;
+            background: #fff;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        .therapy-card h3 {
+            font-size: 24px;
+            color: #8B4513;
+            margin-bottom: 15px;
+        }
+        .therapy-card p {
+            line-height: 1.8;
+            font-size: 15px;
+            color: #333;
+        }
+        .skill-list {
+            margin-top: 15px;
+            font-size: 12px;
+            color: #666;
+            line-height: 1.6;
+        }
+        .quote {
+            margin-top: 15px;
+            padding: 10px 15px;
+            background: #f8f2eb;
+            border-left: 3px solid #8B4513;
+            font-style: italic;
+            font-size: 14px;
+        }
+       
+        /* 地图 */
+        .attractions-map {
+            padding: 60px 20px;
+            text-align: center;
+            color: #fff;
+            text-shadow: 1px 1px 4px #333;
+        }
+        .attractions-map h2 {
+            font-family: 'Noto Serif SC', serif;
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+        .map-container img {
+            max-width: 100%;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+        }
+       
+        /* 统一高端尾栏 */
+        footer {
+            background: var(--green);
+            padding: 56px 60px 32px;
+            color: var(--cream);
+        }
+        .footer-top {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 48px;
+            padding-bottom: 40px;
+            border-bottom: 1px solid rgba(201,160,61,0.15);
+            margin-bottom: 32px;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .footer-brand h3 {
+            font-family: 'Noto Serif SC', serif;
+            font-size: 18px;
+            color: var(--gold);
+            letter-spacing: 3px;
+            margin-bottom: 10px;
+        }
+        .footer-brand p {
+            font-size: 11px;
+            color: rgba(249,246,240,0.4);
+            line-height: 2;
+            letter-spacing: 0.5px;
+        }
+        .footer-col h4 {
+            font-family: 'Noto Serif SC', serif;
+            font-size: 13px;
+            color: var(--gold);
+            letter-spacing: 2px;
+            margin-bottom: 16px;
+        }
+        .footer-col p, .footer-col a {
+            display: block;
+            font-size: 11.5px;
+            color: rgba(249,246,240,0.45);
+            line-height: 2.2;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .footer-col a:hover { color: var(--gold); }
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .footer-bottom p {
+            font-size: 11px;
+            color: rgba(249,246,240,0.3);
+            letter-spacing: 1px;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <div class="logo">
+                <img src="../img/logo.jpg" alt="蒙医正骨LOGO" class="header-logo">
+                <h1>传统正骨非遗</h1>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">首页</a></li>
+                <li><a href="jieshao.html" class="active">技艺介绍</a></li>
+                <li><a href="zhinan.html">传承指南</a></li>
+                <li><a href="history.html">千年历史</a></li>
+                <li><a href="zuopin.html">经典案例</a></li>
+                <li><a href="shufa.html">非遗文创</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <header class="page-header">
+        <div class="container">
+            <h2>特色疗法</h2>
+            <p>十指之下，有河流、有风、有马的肌腱。</p>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="therapy-scroll">
+            <div class="scroll-wrap">
+                <div class="therapy-card">
+                    <h3>手法篇</h3>
+                    <p>以动态图示展示“三诊”：眼看、心想、手摸。配合“喷酒正骨”的哨音瞬间，让身心同步放松。</p>
+                    <div class="skill-list">
+                        十种基础手法：抖、提、压、推、拉、按、揉、摇、扳、牵<br>
+                        十四种按摩手法：捻、滚、压、擦、搓、拍、敲、点、分、理、顺、通、舒、活
+                    </div>
+                </div>
+
+                <div class="therapy-card">
+                    <h3>工具篇</h3>
+                    <p>凸面青铜镜、银杯、蛇蛋花宝石、柳木夹板、毡子压垫、沙袋……草原天然取材。</p>
+                    <div class="quote">
+                        先用烈性白酒充分喷洒在伤肢骨折处和关节部位，再进行揉按按摩，有解毒、舒筋和活血的作用。
+                    </div>
+                </div>
+
+                <div class="therapy-card">
+                    <h3>用药篇</h3>
+                    <p>旭日图乌日勒、敖民乌日勒等经典蒙药配方。</p>
+                    <p style="margin-top:10px;">红珊瑚与草原的草，青金石与银朱——药匣里装的是大地的矿物与植物。</p>
+                </div>
+            </div>
+        </div>
+
+<section class="therapy" id="therapy">
+  <div class="section-inner">
+    <div class="section-header fade-up">
+      <div class="section-label">Special Therapies</div>
+      <h2 class="section-title light">特色疗法</h2>
+      <p class="section-subtitle light">千年智慧 · 手法复位</p>
+      <div class="gold-line"></div>
+    </div>
+
+    <div style="text-align:center">
+      <div class="therapy-tabs fade-up">
+        <button class="tab-btn active" onclick="switchTab('shoufa')">手法篇</button>
+        <button class="tab-btn" onclick="switchTab('gongju')">工具篇</button>
+        <button class="tab-btn" onclick="switchTab('yongyao')">用药篇</button>
+        <button class="tab-btn" onclick="switchTab('liucheng')">治疗流程</button>
+      </div>
+    </div>
+
+    <div class="tab-content active" id="tab-shoufa">
+      <div class="section-header" style="margin-bottom:32px">
+        <div class="techniques-label">诊断手法 · 三诊</div>
+      </div>
+      <div class="diagnosis-methods fade-up">
+        <div class="diag-circle">
+          <div class="diag-circle-ring">眼</div>
+          <span>眼看</span>
+        </div>
+        <div class="diag-connector">—</div>
+        <div class="diag-circle">
+          <div class="diag-circle-ring">心</div>
+          <span>心想</span>
+        </div>
+        <div class="diag-connector">—</div>
+        <div class="diag-circle">
+          <div class="diag-circle-ring">手</div>
+          <span>手摸</span>
+        </div>
+      </div>
+
+      <div style="margin-top:48px">
+        <div class="techniques-label fade-up">十种基础手法</div>
+        <div class="techniques-circular fade-up">
+          <div class="techniques-center">
+            <h3>十种<br>基础<br>手法</h3>
+          </div>
+          <div class="technique-item" style="top:10px;left:50%;transform:translateX(-50%)"><span>抖</span></div>
+          <div class="technique-item" style="top:60px;right:80px"><span>提</span></div>
+          <div class="technique-item" style="top:170px;right:30px"><span>压</span></div>
+          <div class="technique-item" style="bottom:120px;right:50px"><span>推</span></div>
+          <div class="technique-item" style="bottom:30px;right:120px"><span>拉</span></div>
+          <div class="technique-item" style="bottom:10px;left:50%;transform:translateX(-50%)"><span>揉</span></div>
+          <div class="technique-item" style="bottom:30px;left:120px"><span>捏</span></div>
+          <div class="technique-item" style="bottom:120px;left:50px"><span>按</span></div>
+          <div class="technique-item" style="top:170px;left:30px"><span>扳</span></div>
+          <div class="technique-item" style="top:60px;left:80px"><span>摇</span></div>
+        </div>
+
+        <div class="techniques-label fade-up" style="margin-top:32px">十四种按摩手法</div>
+        <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin-top:16px" class="fade-up">
+          <div class="mt-badge">捻</div>
+          <div class="mt-badge">滚</div>
+          <div class="mt-badge">压</div>
+          <div class="mt-badge">擦</div>
+          <div class="mt-badge">揉</div>
+          <div class="mt-badge">摇</div>
+          <div class="mt-badge">搓</div>
+          <div class="mt-badge">颠</div>
+          <div class="mt-badge">推</div>
+          <div class="mt-badge">拿</div>
+          <div class="mt-badge">掐</div>
+          <div class="mt-badge">撑</div>
+          <div class="mt-badge">捏</div>
+          <div class="mt-badge">嵌</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tab-content" id="tab-gongju">
+      <div class="tools-grid fade-up">
+        <div class="tool-card">
+          <h4>凸面青铜镜</h4>
+          <p>用于观察骨骼形态，辅助判断骨折错位程度。镜面光滑细腻，彰显出蒙医骨伤学中的观察与智慧。</p>
+        </div>
+        <div class="tool-card">
+          <h4>银杯</h4>
+          <p>盛放烈性白酒的专用器具，用于喷洒在伤肢骨折处和关节部位，银的金属特性使其具有解毒、舒筋、活血的功效。</p>
+        </div>
+        <div class="tool-card">
+          <h4>蛇蛋花宝石</h4>
+          <p>传统蒙医中用于辅助治疗的珍贵宝石。其独特的纹理被认为具有神秘的疗愈力量。</p>
+        </div>
+        <div class="tool-card">
+          <h4>柳木夹板</h4>
+          <p>选用韧性极佳的柳木制成，质地轻盈而富有弹性，用于固定复位后的骨骼，促进愈合。</p>
+        </div>
+        <div class="tool-card">
+          <h4>毡子压垫</h4>
+          <p>以羊毛毡制成，柔软且富有弹性，置于夹板与肌肤之间，保护软组织免受压迫过度。</p>
+        </div>
+        <div class="tool-card">
+          <h4>沙袋</h4>
+          <p>用于固定和抬高，帮助骨骼保持正确位置，同时通过重量保证局部血液循环。</p>
+        </div>
+      </div>
+      <div style="margin-top:32px;padding:28px 36px;border:1px solid rgba(201,160,61,0.25);background:rgba(201,160,61,0.04)" class="fade-up">
+        <p style="font-family:'Noto Serif SC',serif;font-size:14px;color:rgba(249,246,240,0.7);line-height:2.2;letter-spacing:1px;font-style:italic;text-align:center">
+          「先用烈性白酒充分喷洒在伤肢骨折处和关节部位，再进行揉授按摩，有解毒、舒筋和活血的作用。」
+        </p>
+      </div>
+    </div>
+
+    <div class="tab-content" id="tab-yongyao">
+      <div class="medicine-featured fade-up">
+        <p>红珊瑚与草原的草，青金石与银朱——药匣里装的是大地的矿物与植物。蒙医用药讲究「天人合一」，从自然中汲取疗愈的力量，将天地精华凝聚成一粒粒治病救人的丸药。</p>
+      </div>
+      <div class="medicine-grid fade-up">
+        <div class="medicine-card">
+          <h4>旭日图乌日勒</h4>
+          <p>蒙药经典方剂，意为"红色的药"。以红珊瑚、铁朱等矿物药材为主，辅以原草药药物组成，具有活血化淤、消肿止痛的功效，常用于骨折和跌打损伤的治疗。</p>
+        </div>
+        <div class="medicine-card">
+          <h4>敖民乌日勒</h4>
+          <p>传统蒙药方剂。主要成分包括诃子、川楝子、栀子等，具有清热、解毒、止痛的作用，常用于治疗骨折和跌打损伤的红热炎症。</p>
+        </div>
+        <div class="medicine-card">
+          <h4>七珍散</h4>
+          <p>以珍珠、珊瑚、玛瑙等七种珍贵矿物为主料配伍，具有镇痛、止血、消肿的功效，是蒙医骨伤科常用的外用散剂。</p>
+        </div>
+        <div class="medicine-card">
+          <h4>十五味樟脑散</h4>
+          <p>以天然樟脑为君药，配伍十四味草原植物及矿物药材。具有温经通络、活血化瘀之效，尤适用于寒凝血瘀型骨折。</p>
+        </div>
+      </div>
+      <div class="six-steps fade-up">
+        <p class="six-steps-title">整复、固定、按摩、药物调理、护理及功能锻炼为六大步骤</p>
+        <div class="six-steps-items">
+          <div class="step-item">
+            <div class="step-badge" data-num="①">整复</div>
+            <div class="step-arrow"></div>
+          </div>
+          <div class="step-item">
+            <div class="step-badge" data-num="②">固定</div>
+            <div class="step-arrow"></div>
+          </div>
+          <div class="step-item">
+            <div class="step-badge" data-num="③">按摩</div>
+            <div class="step-arrow"></div>
+          </div>
+          <div class="step-item">
+            <div class="step-badge" data-num="④">药物</div>
+            <div class="step-arrow"></div>
+          </div>
+          <div class="step-item">
+            <div class="step-badge" data-num="⑤">护理</div>
+            <div class="step-arrow"></div>
+          </div>
+          <div class="step-item">
+            <div class="step-badge" data-num="⑥">锻炼</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tab-content" id="tab-liucheng">
+      <div class="treatment-flow fade-up">
+        <div class="flow-title">· 治疗流程 ·</div>
+        <div class="flow-steps">
+          <div class="flow-step">
+            <div class="flow-num">1</div>
+            <h4>问诊</h4>
+            <p>了解病情，通过访谈全面了解患者的治疗史及身体状况</p>
+          </div>
+          <div class="flow-step">
+            <div class="flow-num">2</div>
+            <h4>触诊</h4>
+            <p>通过双手触摸病患骨骼位置与组织，辅助确定骨折位置</p>
+          </div>
+          <div class="flow-step">
+            <div class="flow-num">3</div>
+            <h4>复位</h4>
+            <p>运用专业手法矫正骨骼位置，使骨折端精确复位</p>
+          </div>
+          <div class="flow-step">
+            <div class="flow-num">4</div>
+            <h4>固定</h4>
+            <p>使用夹板根据固定方法使位置保持稳定，保证骨骼稳定</p>
+          </div>
+          <div class="flow-step">
+            <div class="flow-num">5</div>
+            <h4>养护</h4>
+            <p>配合药物与康复训练促进恢复完全，实现骨骼功能重建</p>
+          </div>
+        </div>
+      </div>
+
+      <div style="margin-top:56px">
+        <div class="section-header" style="margin-bottom:32px">
+          <div class="section-label">Classic Cases</div>
+          <h3 class="section-title light" style="font-size:28px">· 经典案例 ·</h3>
+        </div>
+        <div class="cases-grid fade-up">
+          <div class="case-card">
+            <div class="case-icon">骨</div>
+            <div class="case-body">
+              <h4>股骨骨折复位</h4>
+              <p>患者近期骨股处骨折复杂，经蒙医正骨手法复位，配合草药外敷调理三个月后恢复行走功能。</p>
+              <span class="case-tag">经典</span>
+            </div>
+          </div>
+          <div class="case-card">
+            <div class="case-icon">脊</div>
+            <div class="case-body">
+              <h4>腰椎间盘突出</h4>
+              <p>长期劳损导致腰椎间盘突出，通过六步按摩和针灸治疗，辅助推拿复位，腰椎疼痛显著缓解。</p>
+              <span class="case-tag">经典</span>
+            </div>
+          </div>
+          <div class="case-card">
+            <div class="case-icon">肩</div>
+            <div class="case-body">
+              <h4>肩周炎治疗</h4>
+              <p>五十肩患者，肩部活动严重受限，经过一个疗程的按摩手法指导，肩关节活动范围恢复正常。</p>
+              <span class="case-tag">经典</span>
+            </div>
+          </div>
+          <div class="case-card">
+            <div class="case-icon">脊</div>
+            <div class="case-body">
+              <h4>脊柱侧弯矫正</h4>
+              <p>青少年特发性脊柱侧弯，采用传统性正骨手法配合功能锻炼，脊椎角度得到显著改善。</p>
+              <span class="case-tag">经典</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+      
+      <div class="attractions-map">
+          <h2>图片展示</h2>
+          <div class="map-container">
+              <img src="../img/111.png" alt="蒙医正骨传承地图">
+          </div>
+      </div>
+    </main>
+
+<!-- 统一高端尾栏 -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <h3>传统正骨非遗</h3>
+      <p>中央民族大学中国少数民族语言文学学院<br>「传统正骨非遗的健康智慧挖掘与共享实践——探讨民族医药非遗对人类命运与健康共同体的贡献」项目团队</p>
+      <br>
+      <p>数据来源：基于 31 篇文献与田野访谈</p>
+    </div>
+    <div class="footer-col">
+      <h4>联系我们</h4>
+      <p>内蒙古自治区呼和浩特市</p>
+      <p>内蒙古国际蒙医医院</p>
+      <p>电话：0471-5182020</p>
+    </div>
+    <div class="footer-col">
+      <h4>开放时间</h4>
+      <p>周二至周五 9:00-17:00</p>
+      <p>周一闭馆（法定节假日除外）</p>
+      <p>免费参观</p>
+    </div>
+    <div class="footer-col">
+      <h4>关注我们</h4>
+      <p>微信公众号：蒙医正骨</p>
+      <p>微博：@内蒙古非遗</p>
+      <p>抖音：蒙医正骨传承</p>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>项目成员：吉日歌、丹妮、萨其日格、吴之晔、麦庭畅 &nbsp;·&nbsp; 指导教师：阿里穆斯教授</p>
+    <p>© 2026 蒙医正骨非物质文化遗产传承基地 版权所有</p>
+  </div>
+</footer>
+
+	<script>
+	function switchTab(id) {
+	  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+	  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+	  document.getElementById('tab-' + id).classList.add('active');
+	  event.currentTarget.classList.add('active');
+	}
+	
+	const observer = new IntersectionObserver((entries) => {
+	  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+	}, { threshold: 0.12 });
+	document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+	</script>
+</body>
+</html>
